@@ -21,14 +21,38 @@ require(dplyr)
 
 setwd("C:/Dropbox (UP)/UP-Data Evaluation/UP Data Sources/School Data Requests/Lotteries 2015")
 
-raw <- read.csv("UAB Lottery 2015-2016.csv")
+raw <- read.csv("UAB Lottery 2015-2016.csv", strip.white = TRUE)
 
 set.seed(43412696) # Change to a random number from random.org on lottery night
 
-raw <- raw[!is.na(raw$), ]
+# remove extra rows (everyone has a helper)
+raw <- raw[grepl("^NO", raw$Helper), ]
 
-rand <- runif(nrow(raw), min = 1, max = 1000000)
+raw$rand <- runif(nrow(raw), min = 1, max = 10000)
 
+# Assert that there are no duplicate random numbers and everyone has a priority status
+stopifnot( sum( duplicated(raw$rand)) == 0)
+tryCatch( nrow( table( raw$Priority.number)) == 3)
+
+raw <- raw %>% 
+  arrange(rand) %>%
+  mutate(random.lot = row_number())
+
+out <- raw %>%
+  group_by( X2015.2016.Grade) %>% 
+  arrange(Priority.number, random.lot) %>%
+  mutate(priority = row_number(),
+          name = ifelse(tolower(Do.Not.Read.at.Lottery) == "x", "",
+                        paste(First.name, Middle.name, Last.name, sep = " ") )) %>%
+  rename(priority.number = priority, priority.level = Priority.number)
+
+
+out.small <- out %>%
+  select(UP.ID, name, priority.number, priority.level, X2015.2016.Grade, random.lot)
+
+
+write.csv( out, "UAB Results/UAB Lottery Full Results March 11 2015.csv", row.names = F, na = "")
+write.csv( out.small, "UAB Results/UAB Lottery Presentation Results March 11 2015.csv", row.names = F, na = "")
 
 # Output small file == 
 #   Grade,
