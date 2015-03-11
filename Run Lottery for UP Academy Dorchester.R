@@ -8,9 +8,9 @@
 # Where is this information saved?
   # Grade = Grade_GradeLevelCode
   # Priority Order
-    # Level 1: Sibbling -- Applicant_HasSiblingInSchool
-    # Level 2: Current BPS Student -- Applicant_CurrentDistrict
-    # Level 3: Everyone else
+    # Level 1: Sibbling -- UserCheck1 == "TRUE"
+    # Level 2: Current BPS Student -- UserCheck2 == "TRUE"
+    # Level 3: Everyone else (should also be reflected by UserCheck3=="TRUE" )
 
 
 options(stringsAsFactors=F)
@@ -29,13 +29,15 @@ raw$rand <- runif(nrow(raw), min = 1, max = 10000)
 
 # Some checking 
 stopifnot( sum( duplicated(raw$rand)) == 0)
-table(raw$Applicant_HasSiblingInSchool)
-table(raw$Applicant_CurrentDistrict)
+table(raw$UserCheck1)
+table(raw$UserCheck2)
 table(raw$Grade_GradeLevelCode)
 
 raw$priority.level <- with(raw,
-                           ifelse(Applicant_HasSiblingInSchool == "TRUE", 1,
-                           ifelse(Applicant_CurrentDistrict == "BPS", 2, 3)))
+                           ifelse(UserCheck1 == "TRUE", 1,
+                           ifelse(UserCheck2 == "TRUE", 2, 3)))
+
+table(raw$priority.level)
 
 raw <- raw %>% 
   arrange(rand) %>%
