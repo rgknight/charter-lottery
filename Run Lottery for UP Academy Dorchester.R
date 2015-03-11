@@ -6,9 +6,10 @@
 
 
 # Where is this information saved?
+  # Is an application = Applicant_ApplicantID is not missing
   # Grade = Grade_GradeLevelCode
   # Priority Order
-    # Level 1: Sibbling -- UserCheck1 == "TRUE"
+    # Level 1: Sibling -- UserCheck1 == "TRUE"
     # Level 2: Current BPS Student -- UserCheck2 == "TRUE"
     # Level 3: Everyone else (should also be reflected by UserCheck3=="TRUE" )
 
@@ -18,9 +19,9 @@ require(dplyr)
 
 setwd("C:/Dropbox (UP)/UP-Data Evaluation/UP Data Sources/School Data Requests/Lotteries 2015")
 
-raw <- read.csv("UAD Source/150310 2015-2016 Large Version.csv")
+raw <- read.csv("UAD Source/Final 2015-2016 Lottery (All Fields).csv")
 
-set.seed(43412696) # Change to a random number from random.org on lottery night
+set.seed(13558837) # Change to a random number from random.org on lottery night
 
 # remove extra rows 
 raw <- raw[ !is.na(raw$Applicant_ApplicantID), ]
