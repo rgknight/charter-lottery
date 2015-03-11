@@ -14,10 +14,11 @@
 
 
 options(stringsAsFactors=F)
+require(dplyr)
 
 setwd("C:/Dropbox (UP)/UP-Data Evaluation/UP Data Sources/School Data Requests/Lotteries 2015")
 
-raw <- read.csv("UAD 2015-2016 Applicants.csv")
+raw <- read.csv("UAD Source/150310 2015-2016 Large Version.csv")
 
 set.seed(43412696) # Change to a random number from random.org on lottery night
 
