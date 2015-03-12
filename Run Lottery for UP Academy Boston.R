@@ -23,7 +23,7 @@ setwd("C:/Dropbox (UP)/UP-Data Evaluation/UP Data Sources/School Data Requests/L
 
 raw <- read.csv("UAB Source/2015-2016 UAB Lottery.csv", strip.white = TRUE)
 
-set.seed(43412696) # Change to a random number from random.org on lottery night
+set.seed(723462) # Change to a random number from random.org on lottery night
 
 # remove extra rows (everyone has a helper)
 raw <- raw[grepl("^NO", raw$Helper), ]
