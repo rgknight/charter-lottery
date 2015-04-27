@@ -19,7 +19,6 @@ require(dplyr)
 
 setwd("C:/Dropbox (UP)/UP-Data Evaluation/Sacred Data/Lottery/Lotteries 2015")
 
-raw <- read.csv("UAD Source/Final 2015-2016 Lottery (All Fields).csv")
 raw <- read.csv("UAD Source/Final 2015-2016 Lottery L2 (All Fields).csv")
 
 set.seed(524291) # Change to a random number from random.org on lottery night
