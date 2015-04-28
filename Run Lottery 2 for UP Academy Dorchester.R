@@ -20,14 +20,16 @@
 options(stringsAsFactors=F)
 require(dplyr)
 
-setwd("C:/Dropbox (UP)/UP-Data Evaluation/UP Data Sources/School Data Requests/Lotteries 2015")
+setwd("C:/Dropbox (UP)/UP-Data Evaluation/Sacred Data/Lottery/Lotteries 2015")
 
-raw <- read.csv("UAD Source/Final 2015-2016 Lottery 2 (All Fields).csv")
+raw <- read.csv("UAD Source/Final 2015-2016 Lottery L2 (All Fields).csv")
 
 set.seed(1234) # Change to a random number from random.org on lottery night
 
 # remove extra rows 
 raw <- raw[ !is.na(raw$Applicant_ApplicantID), ]
+#filter out non-applicants
+raw <- raw %>% filter(Applicant_CandidateCategory == "Application")
 
 raw$rand <- runif(nrow(raw), min = 1, max = 10000)
 

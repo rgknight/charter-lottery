@@ -17,16 +17,14 @@
 options(stringsAsFactors=F)
 require(dplyr)
 
-setwd("C:/Dropbox (UP)/UP-Data Evaluation/Sacred Data/Lottery/Lotteries 2015")
+setwd("C:/Dropbox (UP)/UP-Data Evaluation/UP Data Sources/School Data Requests/Lotteries 2015")
 
-raw <- read.csv("UAD Source/Final 2015-2016 Lottery L2 (All Fields).csv")
+raw <- read.csv("UAD Source/Final 2015-2016 Lottery (All Fields).csv")
 
-set.seed(524291) # Change to a random number from random.org on lottery night
+set.seed(13558837) # Change to a random number from random.org on lottery night
 
 # remove extra rows 
 raw <- raw[ !is.na(raw$Applicant_ApplicantID), ]
-#filter out non-applicants
-raw <- raw %>% filter(Applicant_CandidateCategory == "Application")
 
 raw$rand <- runif(nrow(raw), min = 1, max = 10000)
 
@@ -57,5 +55,5 @@ out.small <- out %>%
   select(Applicant_ApplicantID, name, priority.number, priority.level, Grade_GradeLevelCode, random.lot)
 
 
-write.csv( out, "UAD Results/UP Dorchester Lottery Full Results L2 April 29 2015.csv", row.names = F, na = "")
-write.csv( out.small, "UAD Results/UP Dorchester Lottery Presentation Results L2 April 29 2015.csv", row.names = F, na = "")
+write.csv( out, "UAD Results/UP Dorchester Lottery Full Results March 11 2015.csv", row.names = F, na = "")
+write.csv( out.small, "UAD Results/UP Dorchester Lottery Presentation Results March 11 2015.csv", row.names = F, na = "")
