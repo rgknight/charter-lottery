@@ -40,8 +40,8 @@ table(raw$UserCheck2)
 table(raw$Grade_GradeLevelCode)
 
 raw$priority.level <- with(raw,
-                           ifelse(UserCheck1 == "TRUE", 1,
-                           ifelse(UserCheck2 == "TRUE", 2, 3)))
+                           ifelse(toupper(UserCheck1) == "TRUE", 1,
+                           ifelse(toupper(UserCheck2) == "TRUE", 2, 3)))
 
 table(raw$priority.level)
 
@@ -53,11 +53,13 @@ out <- raw %>%
   group_by( Grade_GradeLevelCode) %>% 
   arrange(priority.level, random.lot) %>%
   mutate(priority.number = row_number(),
-         name = ifelse(UserCheck4 == "TRUE", "",Applicant_FullName)) 
+         name = ifelse(UserCheck4 == "TRUE", "",Applicant_FullName),
+         lottery.number = "Lottery 2")
 
 
 out.small <- out %>%
-  select(Applicant_ApplicantID, name, priority.number, priority.level, Grade_GradeLevelCode, random.lot)
+  mutate(name = ifelse(toupper(UserCheck4) == "TRUE", "", name)) %>%
+  select(Applicant_ApplicantID, name, priority.number, priority.level, Grade_GradeLevelCode, random.lot, lottery.number)
 
 
 write.csv( out, "UAD Results/UP Dorchester Lottery 2 Results April 29 2015.csv", row.names = F, na = "")
