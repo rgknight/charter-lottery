@@ -24,7 +24,7 @@ setwd("C:/Dropbox (UP)/UP-Data Evaluation/Sacred Data/Lottery/Lotteries 2015")
 
 raw <- read.csv("UAD Source/Final 2015-2016 Lottery L2 (All Fields).csv")
 
-set.seed(1234) # Change to a random number from random.org on lottery night
+set.seed(6745090) # Change to a random number from random.org on lottery night
 
 # remove extra rows 
 raw <- raw[ !is.na(raw$Applicant_ApplicantID), ]
