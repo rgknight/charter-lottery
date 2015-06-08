@@ -23,7 +23,7 @@ setwd("C:/Dropbox (UP)/UP-Data Evaluation/Sacred Data/Lottery/Lotteries 2015")
 
 raw <- read.csv("UAB Source/2015-2016 UAB Lottery L3.csv", strip.white = TRUE)
 
-set.seed(110297) # Change to a random number from random.org on lottery night
+set.seed(864780) # Change to a random number from random.org on lottery night
 
 # remove extra rows (everyone has a helper)
 raw <- raw[grepl("^NO", raw$Helper), ]
@@ -34,7 +34,7 @@ raw$rand <- runif(nrow(raw), min = 1, max = 10000)
 
 # Assert that there are no duplicate random numbers and everyone has a priority status
 stopifnot( sum( duplicated(raw$rand)) == 0)
-tryCatch( nrow( table( raw$Priority.number)) == 3)
+tryCatch( nrow( table( raw$Priority.number)) == 2)
 
 raw <- raw %>% 
   arrange(rand) %>%
